@@ -3,14 +3,14 @@ package TEST2.V1.DFS_BFS;
 
 import java.util.Scanner;
 
-// 중복 순열 구하기
-public class ex4 {
+// 조합 구하기
+public class ex9 {
 
     static int n;
     static int m;
-    static int[] answer;
 
-    public static void DFS(int L){
+    static int[] answer;
+    public static void DFS(int L,int s){
         if(L==m){
             for(int x : answer){
                 System.out.print(x + " ");
@@ -18,9 +18,9 @@ public class ex4 {
             System.out.println();
         }
         else{
-            for(int i=1; i<=n; i++){
+            for(int i=s; i<=n; i++){
                 answer[L]=i;
-                DFS(L+1);
+                DFS(L+1,s+1);
             }
         }
     }
@@ -29,6 +29,6 @@ public class ex4 {
         n = sc.nextInt();
         m = sc.nextInt();
         answer = new int[m];
-        DFS(0);
+        DFS(0,1);
     }
 }
