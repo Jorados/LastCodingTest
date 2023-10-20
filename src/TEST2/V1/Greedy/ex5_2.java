@@ -5,30 +5,16 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-// 다익스트라 알고리즘
-class Edge implements Comparable<Edge>{
-    int v;
-    int cost;
-    public Edge(int v, int cost){
-        this.v = v;
-        this.cost = cost;
-    }
-    @Override
-    public int compareTo(Edge ob){
-        return this.cost-ob.cost;
-    }
-}
-public class ex5 {
-    static int n;
-    static int m;
-    static ArrayList<ArrayList<Edge>> graph;
+// 다익스트라 연습
+public class ex5_2 {
+    static int n,m;
     static int[] dis;
-    public static void BFS(int v){
-        dis[1]=0;
+    static ArrayList<ArrayList<Edge>> graph;
 
+    public static void solution(){
         PriorityQueue<Edge> pq = new PriorityQueue<>();
-        pq.offer(new Edge(v,0)); // 정점 , 비용
-
+        pq.offer(new Edge(1,0));
+        dis[1]=0;
         while (!pq.isEmpty()){
             Edge poll = pq.poll();
             int now = poll.v;
@@ -38,10 +24,10 @@ public class ex5 {
                 continue;
             }
 
-            for(Edge ob : graph.get(now)){
-                if(nowCost + ob.cost < dis[ob.v]){
-                    dis[ob.v] = nowCost + ob.cost;
-                    pq.offer(new Edge(ob.v , nowCost+ ob.cost));
+            for(Edge x : graph.get(now)){
+                if(x.cost + nowCost < dis[x.v]){
+                    dis[x.v] = x.cost + nowCost;
+                    pq.offer(new Edge(x.v,x.cost+nowCost));
                 }
             }
         }
@@ -49,19 +35,24 @@ public class ex5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
+        graph = new ArrayList<>();
         for(int i=0; i<=n; i++){
             graph.add(new ArrayList<>());
         }
         m = sc.nextInt();
+        dis = new int[n+1];
         for(int i=0; i<m; i++){
             int a = sc.nextInt();
-            int b = sc.nextInt();
+            int b =  sc.nextInt();
             int c = sc.nextInt();
-            graph.get(a).add(new Edge(b,c));
+            graph.get(a).add(new Edge(b,c)); //단방향
         }
-
-        dis = new int[n+1];
         Arrays.fill(dis,Integer.MAX_VALUE);
-        BFS(1);
+        solution();
+
+        for(int i=2; i<=n; i++){
+            if(dis[i]!=Integer.MAX_VALUE) System.out.println(i+" : "+dis[i]);
+            else System.out.println(i+" : impossible");
+        }
     }
 }
