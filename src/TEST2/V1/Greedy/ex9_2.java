@@ -38,9 +38,9 @@ public class ex9_2 {
         m = sc.nextInt();
         ch = new boolean[n+1];
         for(int i=0; i<m; i++){
-            int a=  sc.nextInt();
-            int b=  sc.nextInt();
-            int c= sc.nextInt();
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
             graph.get(a).add(new Point(b,c));
             graph.get(b).add(new Point(a,c));
         }
